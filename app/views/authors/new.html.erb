@@ -1,18 +1,54 @@
 <h2>Create an Author</h2>
 <%= form_tag authors_path, method: "post" do %>
+  <% if @author.errors.any? %>
+  <ul id="error_explanation">
+  <% @author.errors.full_messages.each do |x| %>
+      <li><%= x %></li>
+      <% end %>
+  <% end %>
+  </ul>
+  </div>
+  
+  <% if @author.errors[:name].any? %>
+  <div class="field_with_errors">
+  else
   <div class="field">
+  <% end %>
+    <% if @author.errors[:name].any? %>
+    <%= label_tag "name", "Name" %>
+    <%= text_field_tag "name", "", class: 'field_with_errors' %>
+    <% else %>
     <%= label_tag "name", "Name" %>
     <%= text_field_tag "name" %>
+    <% end %>
   </div>
 
+  <% if @author.errors[:email].any? %>
+  <div class="field_with_errors">
+  else
   <div class="field">
-    <%= label_tag "email", "Email" %>
-    <%= text_field_tag "email" %>
+  <% end %>
+  <% if @author.errors[:name].any? %>
+  <%= label_tag "email", "Email" %>
+  <%= text_field_tag "email", @author.email, class: 'field_with_errors' %>
+  <% else %>
+  <%= label_tag "email", "Email" %>
+  <%= text_field_tag "email" %>
+  <% end %>
   </div>
 
+  <% if @author.errors[:phone_number].any? %>
+  <div class="field_with_errors">
+  else
   <div class="field">
-    <%= label_tag "phone_number", "Phone Number" %>
-    <%= text_field_tag "phone_number" %>
+  <% end %>
+  <% if @author.errors[:phone_number].any? %>
+  <%= label_tag "phone_number", "Phone_number" %>
+  <%= text_field_tag "phone_number", params["phone number"], class: 'field_with_errors' %>
+  <% else %>
+  <%= label_tag "phone number", "Phone Number" %>
+  <%= text_field_tag "phone number" %>
+  <% end %>
   </div>
 
   <%= submit_tag "Create" %>
